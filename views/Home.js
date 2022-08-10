@@ -4,7 +4,7 @@ import { StyleSheet ,View, Text, Button } from 'react-native'
 const Home = ({ navigation }) => {
 
     const goToNextView = () =>{
-        navigation.navigate('Weather')
+      navigation.navigate('Weather')
     }
 
   return (
@@ -23,23 +23,23 @@ const Home = ({ navigation }) => {
 export default Home
 
 const styles = StyleSheet.create({
-    title:{
-        fontWeight: "bold",
-        fontSize: 40,
-        textAlign: "center",
-        marginVertical: 100
-    },
-    containerBtn:{
-        backgroundColor: "#7ad5ff",
-        marginHorizontal: 15,
-        borderRadius: 7,
-        elevation: 5
-    },
-    textBtn:{
-        color: "#fff",
-        textAlign: 'center',
-        paddingVertical: 30,
-        fontWeight: "bold",
-        fontSize: 20
-    }
+  title:{
+    fontWeight: "bold",
+    fontSize: 40,
+    textAlign: "center",
+    marginVertical: 100
+  },
+  containerBtn:{
+    backgroundColor: "#7ad5ff",
+    marginHorizontal: 15,
+    borderRadius: 7,
+    elevation: 5
+  },
+  textBtn:{
+    color: "#fff",
+    textAlign: 'center',
+    paddingVertical: 30,
+    fontWeight: "bold",
+    fontSize: 20
+  }
 })

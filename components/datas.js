@@ -7,16 +7,16 @@ const inseeListe = [
 ]
 
 const listMessage = [
-    "appel de l'api...",
-    "réponse de l'api",
+    "Appel de l'api...",
+    "Réponse de l'api",
     "Nous téléchargeons les données…",
-    "données en cours d'analyse",
+    "Données en cours d'analyse",
     "Une petite seconde",
-    "Exomind verifie les donnees...",
-    "Les donnees sont en cour d'exécution",
+    "Exomind vérifie les données...",
+    "Les données sont en cours d'exécution",
     "🚀 données bientot en orbite",
     "C’est presque fini…",
-    "affichage en cours",
+    "Affichage en cours",
 ]
 
 export  {inseeListe, listMessage}

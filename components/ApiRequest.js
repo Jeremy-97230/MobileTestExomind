@@ -15,7 +15,7 @@ const UrlRequest = (useInsee) => {
   return url(data.token, useInsee)
 }
 
-// envoi la requet a l'api
+// send request api
 const launchApi = (url) => {
     
     const result = fetch(url,{
