@@ -38,15 +38,19 @@ const Weather = () => {
         if(tabVilleMeteo.current.length < 5){
             const issee = inseeListe[tabVilleMeteo.current.length].insee
             const dataApi = await launchApi(UrlRequest(issee))
-            tabVilleMeteo.current = [
-                ...tabVilleMeteo.current, 
-                {
-                    ville: dataApi.city.name, 
-                    temperature: dataApi.forecast[0].tmin,
-                    vent: dataApi.forecast[0].wind10m,
-                    rainePercent: dataApi.forecast[0].probarain,
-                }
-            ]
+            if (dataApi !== "error") {
+
+                tabVilleMeteo.current = [
+                    ...tabVilleMeteo.current, 
+                    {
+                        ville: dataApi.city.name, 
+                        temperatureMin: dataApi.forecast[0].tmin,
+                        temperatureMax: dataApi.forecast[0].tmax,
+                        vent: dataApi.forecast[0].wind10m,
+                        rainePercent: dataApi.forecast[0].probarain,
+                    }
+                ]
+            }
         }
     }
 
@@ -101,10 +105,11 @@ const Weather = () => {
                 </View>
             </View>
             :
-            <Button 
-                title='Recommencer'
-                onPress={()=> resetAction()}
-            />
+            <View style={styles.containerProgress} onStartShouldSetResponderCapture={()=> resetAction()}>
+                <View style={styles.bodyProgress}>
+                    <Text style={styles.btnProgressReste}>Recommencer</Text>
+                </View>
+            </View>
             
         )
     }
@@ -117,8 +122,8 @@ const Weather = () => {
             ?
             <View style={styles.tableContainer}>
                 <View style={styles.tableDataContainer}>
-                    <Text style={styles.textTitleTab}>ville</Text>
-                    <Text style={styles.textTitleTab}>Temperature</Text>
+                    <Text style={styles.textTitleTab}>Ville</Text>
+                    <Text style={styles.textTitleTab}>Temperatures</Text>
                     <Text style={styles.textTitleTab}>Pluie</Text>
                     <Text style={styles.textTitleTab}>Vent</Text>
                 </View>
@@ -126,15 +131,18 @@ const Weather = () => {
                     tabVilleMeteo.current.map((city, key) => 
                     <View style={styles.tableDataContainer} key={key}>
                         <Text style={styles.tabTextItem}>{city.ville}</Text>
-                        <Text style={styles.tabTextItem}>{city.temperature}°C</Text>
+                        <Text style={styles.tabTextItem}>{city.temperatureMin}°C - {city.temperatureMax}°C</Text>
                         <Text style={styles.tabTextItem}>{city.rainePercent}%</Text>
                         <Text style={styles.tabTextItem}>{city.vent}km/h</Text>
                     </View>
                     )
                 }
             </View>
-            :
-            <></> 
+            : valuePercent === 60 && tabVilleMeteo.current.length < 1 &&
+            <>
+                <Text>impossible d'afficher les données Météo</Text>
+                <Text>Réessayer</Text>
+            </> 
         )
     }
 
@@ -152,8 +160,8 @@ const Weather = () => {
     //Render  
     return (
         <View style={styles.globalConterner}>
+            <Text style={styles.titleTitle}>Weather App Exomind Test</Text>
             <DisplayCityTable />
-            <Text>Weather</Text>
             <DisplayMessageWaiting />
             <DisplayProgressBar  percentage={valuePercent}/>
         </View>
@@ -195,6 +203,16 @@ const styles = StyleSheet.create({
         right: 10,
         fontSize: 36
     },
+    btnProgressReste:{
+        color: "#ffffff",
+        width: "100%",
+        height: "100%",
+        textAlign: 'center',
+        paddingTop: 12,
+        fontSize: 18,
+        backgroundColor: "#88cbfb",
+        fontWeight: 'bold',
+    },
     tableContainer:{
         width: "100%",
         backgroundColor: "#fff",
@@ -213,5 +231,11 @@ const styles = StyleSheet.create({
     },
     tabTextItem:{
         textAlign: "center"
+    },
+    titleTitle:{
+        fontSize: 20,
+        marginBottom: 35,
+        fontWeight: 'bold',
+        color: "#000000"
     }
 })
